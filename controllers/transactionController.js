@@ -1,4 +1,5 @@
 import Transaction from '../models/transaction.js';
+import User from '../models/User.js'
 
 //create transaction
 export const createTransaction = async (req, res) => {
@@ -15,7 +16,7 @@ export const createTransaction = async (req, res) => {
         type,
         amount,
         category,
-        date: date || Date.now(),
+        date: date ? new Date(date) : new Date(),
         note,
     });
     res.status(201).send({success: 'true', msg: 'successful created', data: transaction })

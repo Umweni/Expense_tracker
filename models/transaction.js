@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "./User";
+import User from "./User.js";
 
 const transactionSchema = new mongoose.Schema({
     user:{
@@ -15,7 +15,8 @@ const transactionSchema = new mongoose.Schema({
     },
     amount:{
         type: Number,
-        required: true
+        required: true,
+        min: [1, "Amount must be greater than 0"]
     },
     category:{
         type: String,
@@ -25,7 +26,10 @@ const transactionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    note:{type: String}
+    note:{
+        type: String,
+        maxlength: [200, "Note cannot exceed 200 characters"]
+    }
 },{timestamps: true});
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
